@@ -17,10 +17,10 @@
   },
   "homepage": "https://github.com/TheDiscorders/SelfRythm#readme",
   "dependencies": {
+    "@distube/ytdl-core": "^4.14.4",
     "ascii-table": "^0.0.9",
     "discord-player": "^6.6.1",
     "discord.js-selfbot-v13": "^2.14.12",
-    "enmap": "^5.9.8",
-    "ytdl-core": "^4.11.4"
+    "enmap": "^5.9.8"
   }
 }

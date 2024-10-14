@@ -1,4 +1,4 @@
-const ytdl = require("ytdl-core");
+const ytdl = require("@distube/ytdl-core");
 
 const strings = require("../strings.json");
 const utils = require("../utils");

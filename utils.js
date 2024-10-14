@@ -1,6 +1,6 @@
 const AsciiTable = require("ascii-table/ascii-table");
 const YouTube = require("youtube-sr").default;
-const ytdl = require("ytdl-core");
+const ytdl = require("@distube/ytdl-core");
 const { createAudioResource, createAudioPlayer, joinVoiceChannel } = require('@discordjs/voice');
 
 module.exports = {
