@@ -13,6 +13,7 @@
     "volumeToHigh": "❌ Volume can't be above 10",
     "noNumber": "❌ You need to provide number (1 being 100% about the right volume)",
     "earrapeFail": "❌ Conditions not completed in 8sec, earrape mod canceled",
+    "notAllowedToEarrape": "❌ You are not allowed to Earrape",
     "startedPlaying": "✅ '**SONG_TITLE**' started playing\n<url>",
     "songAddedToQueue": "✅ '**SONG_TITLE**' has been added to the queue\n<url>",
     "musicStopped": "✅ Music stopped",

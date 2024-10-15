@@ -12,8 +12,10 @@ module.exports.run = async (client, message, args) => {
 
     floatVolume = parseFloat(args);
 
-    if(!Number.isInteger(parseInt(args)) && utils.isFloat(floatVolume) && args != "earrape") return message.channel.send(strings.noNumber);
+    if(!Number.isInteger(parseInt(args)) && utils.isFloat(floatVolume) && args != "earrape") 
+        return message.channel.send(strings.noNumber);
 
+    // "Earrape" command logic
     if (args[0] === "earrape"){
 
         message.channel.send(strings.earrapeWarning)
@@ -22,12 +24,18 @@ module.exports.run = async (client, message, args) => {
             await warning.react('✅');
 
             const filter = (reaction, user) => {
-                return reaction.emoji.name == "✅" && user.id == message.author.id;
+                return reaction.emoji.name == "✅" 
+                    && global.config.allowed.includes(user.id); // Only allow reactions from allowed users
             };
-             
+
             const collector = warning.createReactionCollector(filter, { max: 1, time: 8000 });
        
-            collector.on('collect', () => {
+            collector.on('collect', (reaction, user) => {
+                // Ensure the user reacting is in the allowed list
+                if (!global.config.allowed.includes(user.id)) {
+                    return message.channel.send(strings.notAllowedToEarrape); // Optional message
+                }
+
                 oldVolume = serverQueue.volume;
                 serverQueue.volume = 100;
                 serverQueue.connection._state.subscription.player._state.resource.volume.setVolumeLogarithmic(100 / 5);
@@ -39,13 +47,13 @@ module.exports.run = async (client, message, args) => {
                 }, 7000);
             });
 
-            collector.on(`end`, () => {
-                if(collector.total === 0) return message.channel.send(strings.earrapeFail);
+            collector.on(`end`, collected => {
+                if(collected.size === 0) return message.channel.send(strings.earrapeFail);
             });
 
         });
     } else {
-
+        // Volume change logic
         if(args[0] > 10) return message.channel.send(strings.volumeToHigh);
         if(!message.member.voice.channel) return message.channel.send(strings.notInVocal);
         message.channel.send(strings.volumeChanged.replace("VOLUME", args[0]));
@@ -60,3 +68,4 @@ module.exports.run = async (client, message, args) => {
 module.exports.names = {
     list: ["volume", "v"]
 };
+    
