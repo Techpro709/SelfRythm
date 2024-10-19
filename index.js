@@ -14,14 +14,14 @@ const { Player } = require("discord-player")
 if (!process.env.TOKEN){
   try{
     const config = require("./config");
-    global.config = {'token': config.token, 'prefix': config.prefix};
+    global.config = {'token': config.token, 'prefix': config.prefix, 'owner': config.owner};
   } catch (e){
     console.error("No config file found, create it or use environnement variables.");
     process.exit(1);
   };
 } else{
   if (!process.env.PREFIX) process.env.PREFIX="$";
-  global.config = {'token': process.env.TOKEN, 'prefix': process.env.PREFIX};
+  global.config = {'token': process.env.TOKEN, 'prefix': process.env.PREFIX, 'owner': process.env.owner};
 }
 if (!process.env.ALLOWED){
   try {global.config.allowed=require("./allowed.json").allowed}
