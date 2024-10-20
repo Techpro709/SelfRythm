@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const prefix = global.config.prefix;
-const owner = global.config.owner;
+const owners = global.config.owner; // Now owners is an array
 const strings = require('../strings.json');
 const utils = require('../utils');
 
@@ -28,21 +28,21 @@ module.exports = (client, message) => {
         }
 
         // Check if the user is not allowed and the allowed list is not empty
-        if (!global.config.allowed.includes(message.author.id) && message.author.id !== owner) {
+        if (!global.config.allowed.includes(message.author.id) && !owners.includes(message.author.id)) {
             message.channel.send(strings.permissionDenied);
             utils.log(`${message.author.username} tried to run the command '${message.content}' but permission was not accepted #notallowed`);
             return;
         }
 
-        // Check for whitelist command and restrict it to the owner
-        if (cmd.names.list.includes("whitelist") && message.author.id !== owner) {
+        // Check for whitelist command and restrict it to the owner(s)
+        if (cmd.names.list.includes("whitelist") && !owners.includes(message.author.id)) {
             message.channel.send(strings.permissionDenied);
             utils.log(`${message.author.username} tried to run the command '${message.content}' but permission was not accepted #whitelist`);
             return;
         }
 
         // Check for blacklist command: If the message content includes the owner ID, deny it
-        if (cmd.names.list.includes("blacklist") && message.content.includes(owner)) {
+        if (cmd.names.list.includes("blacklist") && owners.some(ownerID => message.content.includes(ownerID))) {
             message.channel.send(strings.cannotBlacklistOwner);
             utils.log(`${message.author.username} tried to blacklist the owner with the command '${message.content}' #blacklistowner`);
             return;

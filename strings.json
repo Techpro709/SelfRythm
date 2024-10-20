@@ -36,5 +36,7 @@
     "userWhitelisted": "Adding <@USER_ID> to the whitelist.",
     "whitelistUpdateSuccess": "✅ Whitelist updated successfully.",
     "userBlacklisted": "Removing <@USER_ID> from the whitelist.",
-    "blacklistUpdateSuccess": "✅ Blacklist updated successfully."
+    "blacklistUpdateSuccess": "✅ Blacklist updated successfully.",
+        "notYoutubeURL": "❌ Only youtube links are supported",
+    "invalidLink": "The provided URL is not a valid YouTube or Spotify URL.\nNOTE: If you want to use Spotify URLs, make sure to use the Spotify URL of a song, not a playlist."
 }

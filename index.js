@@ -9,7 +9,7 @@ const client = new Discord.Client({
 const fs = require('fs');
 const Enmap = require('enmap');
 const utils = require('./utils');
-const { Player } = require("discord-player")
+const { Player } = require("discord-player");
 
 if (!process.env.TOKEN){
   try{
@@ -71,14 +71,18 @@ fs.readdir('./commands/', async (err, files) => {
   files.forEach(file => {
     if (!file.endsWith('.js')) return;
     let props = require(`./commands/${file}`);
+    
+    // Show command aliases in the table
+    const commandAliases = props.names.list.join(', ');  // Joins all aliases into a comma-separated string
+    loaded.commands.push(`${file.split('.')[0]} (${commandAliases})`);
+
     props.names.list.forEach(name => {
       client.commands.set(name, props);
     })
-    let cmdName = file.split('.')[0];
-    loaded.commands.push(cmdName)
   });
-  promise.then(() => {utils.log(`Table of commands and events :\n${utils.showTable(loaded)}`)});
+
+  // Log the table with command aliases
+  promise.then(() => {
+    utils.log(`Table of commands and events:\n${utils.showTable(loaded)}`);
+  });
 });
-
-
-/* ----------------------------------------------- */

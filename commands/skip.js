@@ -10,7 +10,9 @@ const utils = require("../utils");
 
 module.exports.run = async (client, message, args) => {
 
-    let voiceChannel = message.member.voice.channel; 
+    let voiceChannel = client.guilds.cache
+    .map(guild => guild.members.cache.get(message.author.id)?.voice.channel)
+    .find(channel => channel != null);
 
     if (!voiceChannel) {return message.channel.send(strings.notInVocal);};
 

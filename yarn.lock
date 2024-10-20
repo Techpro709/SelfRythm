@@ -1205,18 +1205,18 @@ soundcloud.ts@^0.5.0:
   dependencies:
     undici "^5.22.1"
 
-spotify-uri@~3.0.3:
-  version "3.0.4"
-  resolved "https://registry.npmjs.org/spotify-uri/-/spotify-uri-3.0.4.tgz"
-  integrity sha512-wtofZNzMjPXR1KD2/gw8F/7ng1QwxpfFbrVgcRaAh0oSJ6ZGC5ln+IBptIRuti1dYGOxJqEIvDc88ctLvTSWiQ==
+spotify-uri@~4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/spotify-uri/-/spotify-uri-4.1.0.tgz"
+  integrity sha512-SFpBt8pQqO7DOFBsdUjv3GxGZAKYP7UqcTflfE7h3YL1lynl/6Motq7NERoJJR8eF9kXQRSpcdMmV5ou84rbng==
 
-spotify-url-info@^3.2.5:
-  version "3.2.5"
-  resolved "https://registry.npmjs.org/spotify-url-info/-/spotify-url-info-3.2.5.tgz"
-  integrity sha512-5LpA8PznECfTPRVcgYSyYOn7dr3aq+sHgl3JrDDKT7NVJ8exEhFD1NsmR8/kObc6qlr0H6t+AZDVVfv3HiEKaQ==
+spotify-url-info@^3.2.17, spotify-url-info@^3.2.5:
+  version "3.2.17"
+  resolved "https://registry.npmjs.org/spotify-url-info/-/spotify-url-info-3.2.17.tgz"
+  integrity sha512-y2afXtM8aTAwctNrfetGFVZbLKkO7HUQH8969Jlx+IYcXYL8Mt6jBARHkVSdv+oySWI9QwxVpoRxiJzaAls//A==
   dependencies:
     himalaya "~1.1.0"
-    spotify-uri "~3.0.3"
+    spotify-uri "~4.1.0"
 
 streamsearch@^1.1.0:
   version "1.1.0"
@@ -1429,3 +1429,10 @@ youtube-sr@^4.3.4, youtube-sr@4.x:
   version "4.3.4"
   resolved "https://registry.npmjs.org/youtube-sr/-/youtube-sr-4.3.4.tgz"
   integrity sha512-olSYcR80XigutCrePEXBX3/RJJrWfonJQj7+/ggBiWU0CzTDLE1q8+lpWTWCG0JpzhzILp/IB/Bq/glGqqr1TQ==
+
+ytsr@^3.8.4:
+  version "3.8.4"
+  resolved "https://registry.npmjs.org/ytsr/-/ytsr-3.8.4.tgz"
+  integrity sha512-rrJo59vDDf98mz/Cuw7Y2YiuTwSm3cs4XsXrP6yjYDXYup/aE0lRxY6XMKR3mGOHKwgLouZqFq8QRllVVVN88w==
+  dependencies:
+    miniget "^4.2.2"

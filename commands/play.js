@@ -1,5 +1,6 @@
 const ytdl = require("@distube/ytdl-core");
-
+const spotifyUrlInfo = require('spotify-url-info')(fetch)
+const ytsr = require('ytsr'); // YouTube search module
 const strings = require("../strings.json");
 const utils = require("../utils");
 
@@ -14,30 +15,49 @@ const utils = require("../utils");
 
 module.exports.run = async (client, message, args) => {
 
-    if(!args[0]) return message.channel.send(strings.noArgsSongSearch);
+    if (!args[0]) return message.channel.send(strings.noArgsSongSearch);
 
     utils.log("Looking for music details...")
-
-    if(utils.isURL(args[0])){
+    let FUrl;
+    if (utils.isURL(args[0])) {
         FUrl = args[0];
     } else {
         FUrl = await utils.getUrl(args)
     };
 
-    let voiceChannel = message.member.voice.channel; 
+    let voiceChannel = client.guilds.cache
+    .map(guild => guild.members.cache.get(message.author.id)?.voice.channel)
+    .find(channel => channel != null);
     const serverQueue = queue.get("queue");
-    const songInfo = await ytdl.getBasicInfo(FUrl);
+    let songInfo;
+    try {
+        if (FUrl.includes('spotify')) {
+            const spotifyInfo = await spotifyUrlInfo.getDetails(FUrl);
+            console.log(spotifyInfo)
+            console.log(`
+            Title: ${spotifyInfo.preview.title}\n
+            Artist: ${spotifyInfo.preview.artist}\n`)
+            const youtubeResults = await ytsr(spotifyInfo.preview.title + ' ' + spotifyInfo.preview.artist, { limit: 1 });
+            FUrl = youtubeResults.items[0].url;
+        }
+        songInfo = await ytdl.getBasicInfo(FUrl);
+        // console.log(songInfo)
+    } catch (error) {
+        console.log(error)
+        return message.channel.send("The provided URL is not a valid YouTube or Spotify URL.\nNOTE: If you want to use Spotify URLs, make sure to use the Spotify URL of a song, not a playlist.");
+    }
+
 
     const song = {
         title: songInfo.videoDetails.title,
-        duration: songInfo.videoDetails.lengthSeconds,
+        duration: songInfo.videoDetails.durationSec,
         url: FUrl,
         requestedby: message.author.username
     };
 
     utils.log("Got music details, preparing the music to be played...")
-    
-    if(!serverQueue || !serverQueue.songs) {
+
+    if (!serverQueue || !serverQueue.songs) {
 
         const queueConstruct = {
             textchannel: message.channel,
@@ -53,10 +73,10 @@ module.exports.run = async (client, message, args) => {
         queue.set("queue", queueConstruct);
         queueConstruct.songs.push(song);
 
-        if (voiceChannel != null) { 
+        if (voiceChannel != null) {
 
             message.channel.send(strings.startedPlaying.replace("SONG_TITLE", song.title).replace("url", song.url));
-            
+
             const connection = utils.joinVChannel(voiceChannel);
 
             queueConstruct.connection = connection;
