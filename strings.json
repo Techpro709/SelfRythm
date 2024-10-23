@@ -7,7 +7,7 @@
     "cantLoop": "❌ You need to have a song playing to loop it",
     "badUrl": "❌ Invalid link provided",
     "errorJoin": "❌ A music needs to be playing for the bot to change channels",
-    "noVolume": "❌ You need to provide a value for the volume",
+    "currentVolume": "🎶 Volume set at VOLUME",
     "nothingPlayingVolume": "❌ You need to have a song playing to change the volume",
     "toMuchArgsVolume": "❌ There are too many arguments, please provide a single number",
     "volumeToHigh": "❌ Volume can't be above 10",

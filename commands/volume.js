@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args) => {
     if (!serverQueue) return message.channel.send(strings.nothingPlayingVolume);
 
     if (args.length > 1) return message.channel.send(strings.toMuchArgsVolume);
-    if (args.length === 0) return message.channel.send(strings.noVolume);
+    if (args.length === 0) return message.channel.send(strings.currentVolume.replace("VOLUME", serverQueue.volume));
 
     let floatVolume = parseFloat(args[0]);
 
